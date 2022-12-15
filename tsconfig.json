@@ -1,0 +1,15 @@
+{
+  "include": [
+    "./src/*"
+  ],
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "commonjs",
+    "lib": [
+      "esnext"
+    ],
+    "esModuleInterop": true,
+    "strict": true,
+    //"strictNullChecks": false
+  }
+}
