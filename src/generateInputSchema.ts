@@ -13,12 +13,30 @@ const getParametersFromExpressions = (
       }
       return null;
     })
-    .filter((v) => v != null) as string[];
+    .filter((v) => v != null)
+    .flat(10) as string[];
+};
+
+const getArgumentsFromExpressions = (
+  expressions: CalculationObject["expressions"]
+): Array<string> => {
+  return expressions
+    .map((expression) => {
+      if (expression.type === "parameter") {
+        return expression.name;
+      }
+      if (expression.type === "nested") {
+        return getParametersFromExpressions(expression.expressions);
+      }
+      return null;
+    })
+    .filter((v) => v != null)
+    .flat(10) as string[];
 };
 
 export const generateInputSchema = (calculationObject: CalculationObject) => {
   const schema = {
-    title: calculationObject.name
+    title: calculationObject.name,
   };
   // get all expressions
   // loop expressions

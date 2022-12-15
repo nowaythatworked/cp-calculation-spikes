@@ -1,5 +1,74 @@
 import { CalculationObject } from "./validation";
 
+type CalculationInput = {
+  expression: string;
+  parts: {
+    [name: string]: {
+      expression: string;
+      description?: string;
+    };
+  };
+};
+
+export const formulaWithParts: CalculationInput = {
+  expression:
+    "parts['weightCo2'].expression + parts['foodCo2'].expression + 10",
+  parts: {
+    weightCo2: {
+      expression: "weightKg * await ef(10)",
+    },
+    foodCo2: {
+      expression: "foodKg * await ef(20)",
+    },
+  },
+};
+
+// As this object is only used for validation it´s not important to keep references of parts.
+// When we would want to use this as the input and generate the expression string for evaluation out
+// this object, another layer would need to added. This is not a big complexity tho.
+export const formulaWithPartsCalculationObject: CalculationObject = {
+  name: "CatWithParts",
+  expressions: [
+    {
+      type: "parameter",
+      name: "weightKg",
+      operator: "+",
+    },
+    {
+      type: "function",
+      name: "ef",
+      operator: "*",
+      arguments: [
+        {
+          parameter: false,
+          value: 10,
+        },
+      ],
+    },
+    {
+      type: "parameter",
+      name: "foodKg",
+      operator: "+",
+    },
+    {
+      type: "function",
+      name: "ef",
+      operator: "*",
+      arguments: [
+        {
+          parameter: false,
+          value: 20,
+        },
+      ],
+    },
+    {
+      type: "value",
+      value: 10,
+      operator: "+",
+    },
+  ],
+};
+
 export const formula = "weightKg * await ef(10)";
 
 export const formulaCalculationObject: CalculationObject = {
@@ -8,7 +77,7 @@ export const formulaCalculationObject: CalculationObject = {
     {
       type: "parameter",
       name: "weightKg",
-      operator: "+"
+      operator: "+",
     },
     {
       type: "function",
@@ -17,11 +86,11 @@ export const formulaCalculationObject: CalculationObject = {
       arguments: [
         {
           value: 10,
-          parameter: false
-        }
-      ]
-    }
-  ]
+          parameter: false,
+        },
+      ],
+    },
+  ],
 };
 
 // ###########################
@@ -34,7 +103,7 @@ export const complexCalculationObject: CalculationObject = {
     {
       name: "ageYears",
       type: "parameter",
-      operator: "+"
+      operator: "+",
     },
     {
       type: "function",
@@ -43,9 +112,9 @@ export const complexCalculationObject: CalculationObject = {
       arguments: [
         {
           value: 777,
-          parameter: false
-        }
-      ]
+          parameter: false,
+        },
+      ],
     },
     {
       type: "nested",
@@ -54,7 +123,7 @@ export const complexCalculationObject: CalculationObject = {
         {
           type: "parameter",
           name: "weightKg",
-          operator: "+"
+          operator: "+",
         },
         {
           type: "function",
@@ -63,16 +132,16 @@ export const complexCalculationObject: CalculationObject = {
           arguments: [
             {
               value: 31337,
-              parameter: false
-            }
-          ]
-        }
-      ]
+              parameter: false,
+            },
+          ],
+        },
+      ],
     },
     {
       name: "foodKg",
       type: "parameter",
-      operator: "+"
+      operator: "+",
     },
     {
       type: "function",
@@ -81,17 +150,17 @@ export const complexCalculationObject: CalculationObject = {
       arguments: [
         {
           parameter: false,
-          value: "foodTypes"
+          value: "foodTypes",
         },
         {
           parameter: true,
-          name: "foodType"
+          name: "foodType",
         },
         {
           parameter: false,
-          value: "summer"
-        }
-      ]
-    }
-  ]
+          value: "summer",
+        },
+      ],
+    },
+  ],
 };
