@@ -4,7 +4,7 @@
   "description": "nodejs typescript template",
   "main": "src/index.ts",
   "scripts": {
-    "start": "nodemon --exec ts-node src/calculation.ts"
+    "start": "nodemon --exec ts-node src/index.ts"
   },
   "engines": {
     "node": ">=16"

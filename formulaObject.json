@@ -1,0 +1,84 @@
+{
+  "name": "CatWithParts",
+  "expressions": [
+    {
+      "type": "part",
+      "name": "weightCo2",
+      "expressions": [
+        {
+          "type": "parameter",
+          "name": "weightKg",
+          "operator": "+"
+        },
+        {
+          "type": "function",
+          "name": "ef",
+          "arguments": [
+            {
+              "parameter": false,
+              "value": 10
+            }
+          ],
+          "operator": "+"
+        },
+        {
+          "type": "parameter",
+          "name": "20",
+          "operator": "+"
+        },
+        {
+          "type": "parameter",
+          "name": "( 10",
+          "operator": "+"
+        },
+        {
+          "type": "parameter",
+          "name": "20",
+          "operator": "+"
+        },
+        {
+          "type": "parameter",
+          "name": "2",
+          "operator": "+"
+        },
+        {
+          "type": "parameter",
+          "name": "( 10",
+          "operator": "+"
+        },
+        {
+          "type": "parameter",
+          "name": "2 ))",
+          "operator": "+"
+        }
+      ]
+    },
+    {
+      "type": "part",
+      "name": "foodCo2",
+      "expressions": [
+        {
+          "type": "parameter",
+          "name": "foodKg",
+          "operator": "+"
+        },
+        {
+          "type": "function",
+          "name": "ef",
+          "arguments": [
+            {
+              "parameter": false,
+              "value": 20
+            }
+          ],
+          "operator": "+"
+        }
+      ]
+    },
+    {
+      "type": "parameter",
+      "name": "10",
+      "operator": "+"
+    }
+  ]
+}

@@ -1,23 +1,30 @@
 import { z } from "zod";
 
+//export enum OPERATORS {"+", "-", "*", "/", "%"}
+
 const expressionBase = z.object({
-  //type: z.enum(["value", "function", "nested"]),
-  operator: z.enum(["+", "-", "*", "/", "%"]),
+  type: z.enum(["value", "function", "nested"]),
+  operator: z.enum(["+", "-", "*", "/", "%"])
+  //operator: z.nativeEnum(OPERATORS),
 });
 
-type ExpressionBase = z.infer<typeof expressionBase>;
+export type ExpressionBase = z.infer<typeof expressionBase>;
 
 const valueExpression = expressionBase.extend({
   type: z.literal("value"),
   //parameter: z.literal(false), // required when type != function | nested
-  value: z.number(),
+  value: z.number().or(z.string()).or(z.boolean()),
 });
+
+export type ValueExpression = z.infer<typeof valueExpression>
 
 const parameterExpression = expressionBase.extend({
   type: z.literal("parameter"),
   //parameter: z.literal(true), // required when type != function | nested
   name: z.string(),
 });
+
+export type ParameterExpression = z.infer<typeof parameterExpression>
 
 // TODO: Create map of functions to zod-objects validating the input (arguments)
 // Same Map can be used to map implementation of function to pass to VM2
@@ -39,29 +46,41 @@ const functionExpression = expressionBase.extend({
   ),
 });
 
+export type FunctionExpression = z.infer<typeof functionExpression>
+
 const mergedExpressions = valueExpression
   .or(parameterExpression)
   .or(functionExpression);
 
 type MergedExpressions = z.infer<typeof mergedExpressions>;
 
-type NestedExpression = {
+const partExpression = z.late.object(() => ({
+  type: z.literal('part'),
+  name: z.string(),
+  expressions: z.array(nestedExpression.or(mergedExpressions))
+}))
+
+export type PartExpression = z.infer<typeof partExpression>
+
+export type NestedExpression = {
   type: "nested";
   operator: ExpressionBase["operator"];
-  expressions: Array<NestedExpression | MergedExpressions>;
+  expressions: Array<NestedExpression | MergedExpressions | PartExpression>;
 };
+
 
 const nestedExpression: z.ZodType<NestedExpression> = z.late
   .object(() => ({
     type: z.literal("nested"),
-    expressions: z.array(nestedExpression.or(mergedExpressions)),
+    expressions: z.array(nestedExpression.or(mergedExpressions).or(partExpression)),
   }))
   .extend(expressionBase.shape);
+  
 
 const schema = z.object({
   name: z.string(),
-  expressions: z.array(nestedExpression.or(mergedExpressions)),
+  expressions: z.array(nestedExpression.or(mergedExpressions).or(partExpression)),
 });
 
-export type CalculationObject = z.infer<typeof schema>;
+export type FormulaObject = z.infer<typeof schema>;
 export const validate = (object: any) => schema.safeParse(object);

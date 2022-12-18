@@ -1,7 +1,7 @@
-import type { CalculationObject } from "./validation";
+import type { FormulaObject } from "./validation";
 
 const getParametersFromExpressions = (
-  expressions: CalculationObject["expressions"]
+  expressions: FormulaObject["expressions"]
 ): Array<string> => {
   return expressions
     .map((expression) => {
@@ -18,7 +18,7 @@ const getParametersFromExpressions = (
 };
 
 const getArgumentsFromExpressions = (
-  expressions: CalculationObject["expressions"]
+  expressions: FormulaObject["expressions"]
 ): Array<string> => {
   return expressions
     .map((expression) => {
@@ -34,7 +34,7 @@ const getArgumentsFromExpressions = (
     .flat(10) as string[];
 };
 
-export const generateInputSchema = (calculationObject: CalculationObject) => {
+export const generateInputSchema = (calculationObject: FormulaObject) => {
   const schema = {
     title: calculationObject.name,
   };
