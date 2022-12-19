@@ -3,7 +3,6 @@ import { z } from "zod";
 //export enum OPERATORS {"+", "-", "*", "/", "%"}
 
 const expressionBase = z.object({
-  type: z.enum(["value", "function", "nested"]),
   operator: z.enum(["+", "-", "*", "/", "%"])
   //operator: z.nativeEnum(OPERATORS),
 });

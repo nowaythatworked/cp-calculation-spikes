@@ -19,65 +19,48 @@
               "value": 10
             }
           ],
+          "operator": "*"
+        },
+        {
+          "type": "parameter",
+          "name": " (20",
           "operator": "+"
         },
         {
           "type": "parameter",
-          "name": "20",
+          "name": " 10",
           "operator": "+"
         },
         {
           "type": "parameter",
-          "name": "( 10",
+          "name": " 20",
           "operator": "+"
         },
         {
           "type": "parameter",
-          "name": "20",
+          "name": " 2",
           "operator": "+"
         },
         {
           "type": "parameter",
-          "name": "2",
+          "name": " ( 10",
           "operator": "+"
         },
         {
           "type": "parameter",
-          "name": "( 10",
-          "operator": "+"
-        },
-        {
-          "type": "parameter",
-          "name": "2 ))",
-          "operator": "+"
-        }
-      ]
-    },
-    {
-      "type": "part",
-      "name": "foodCo2",
-      "expressions": [
-        {
-          "type": "parameter",
-          "name": "foodKg",
-          "operator": "+"
-        },
-        {
-          "type": "function",
-          "name": "ef",
-          "arguments": [
-            {
-              "parameter": false,
-              "value": 20
-            }
-          ],
+          "name": " 2 ))",
           "operator": "+"
         }
       ]
     },
     {
       "type": "parameter",
-      "name": "10",
+      "name": " parts['foodCo2']",
+      "operator": "+"
+    },
+    {
+      "type": "parameter",
+      "name": " 10",
       "operator": "+"
     }
   ]
